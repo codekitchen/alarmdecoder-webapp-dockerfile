@@ -19,17 +19,28 @@ RUN cd /opt \
 
 WORKDIR /opt/alarmdecoder-webapp
 
-RUN pip install -r requirements.txt
+# waiting for a new release of gevent-socketio https://github.com/abourget/gevent-socketio/pull/221
+RUN sed -i -e"s/gevent>=1.0/gevent==1.0.2/g" requirements.txt \
+ && pip install -r requirements.txt
 
 RUN mkdir instance \
  && chown -R alarmdecoder:alarmdecoder .
 
 USER alarmdecoder
-
 RUN python manage.py initdb
+USER root
 
 # sqlite db is stored here
 VOLUME /opt/alarmdecoder-webapp/instance
-EXPOSE 8000
 
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "wsgi:application"]
+# I'm not sure what's going on here, but the app starts its own server on port
+# 5000, and that's the server that it wants exposed to the outside world. So we
+# start gunicorn on port 8000, but that server is ignored and the code spins up
+# the actual server that we expose.
+#
+# This port 5000 also seems to be hard-coded in a few different places in the app.
+EXPOSE 5000
+
+COPY start.sh /
+
+CMD ["/start.sh"]
