@@ -5,7 +5,10 @@ Webapp](https://github.com/nutechsoftware/alarmdecoder-webapp) project. It is
 built by following the build instructions in that project's README, with a few
 tweaks to adapt to the Docker environment.
 
-## Run container
+## Run Container
+
+The container is available pre-built on [Docker
+Hub](https://hub.docker.com/r/codekitchen/alarmdecoder-webapp/).
 
     docker run --rm -p 8000:8000 --device=<device_id> codekitchen/alarmdecoder-webapp
 
