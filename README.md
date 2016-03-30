@@ -7,13 +7,13 @@ This is a Dockerfile for the [AlarmDecoder Webapp](https://github.com/nutechsoft
 The container is available pre-built on [Docker Hub](https://hub.docker.com/r/codekitchen/alarmdecoder-webapp/).
 
 ```bash
-docker run --rm -p 8000:8000 --device=<device_id> codekitchen/alarmdecoder-webapp
+docker run --rm -p 5000:5000 --device=<device_id> codekitchen/alarmdecoder-webapp
 ```
 
 The container will need access to the AlarmDecoder hardware, replace
 `<device_id>` with the correct USB device, e.g. `--device=/dev/ttyUSB0`.
 
-You can then access AlarmDecoder at `http://<host_ip>:8000`.
+You can then access AlarmDecoder at `http://<host_ip>:5000`.
 
 ## Complete Setup
 
