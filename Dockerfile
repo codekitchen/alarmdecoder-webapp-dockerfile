@@ -15,13 +15,11 @@ RUN useradd -ms /bin/bash alarmdecoder \
 RUN pip install gunicorn --upgrade
 
 RUN cd /opt \
- && git clone http://github.com/nutechsoftware/alarmdecoder-webapp.git
+ && git clone https://github.com/nutechsoftware/alarmdecoder-webapp.git
 
 WORKDIR /opt/alarmdecoder-webapp
 
-# waiting for a new release of gevent-socketio https://github.com/abourget/gevent-socketio/pull/221
-RUN sed -i -e"s/gevent>=1.0/gevent==1.0.2/g" requirements.txt \
- && pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 RUN mkdir instance \
  && chown -R alarmdecoder:alarmdecoder .
